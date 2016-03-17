@@ -93,7 +93,7 @@ Slides.prototype.move = function move (steps) {
   return true
 }
 
-function updateState (slides, steps) {
+function updateState (slides) {
   slides.elements.forEach(function (el) {
     var previousState = el.state
     var newState = changeState(slides, el.index)
