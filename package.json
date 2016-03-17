@@ -1,0 +1,37 @@
+{
+  "name": "slides",
+  "version": "1.0.0",
+  "description": "Slideshow utility",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard *.js",
+    "pre_test": "npm run lint",
+    "test": "tape test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acstll/slides.git"
+  },
+  "keywords": [
+    "browser",
+    "slideshow",
+    "slides",
+    "utility"
+  ],
+  "author": "Arturo Castillo Delgado <arturo@arturu.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/acstll/slides/issues"
+  },
+  "homepage": "https://github.com/acstll/slides",
+  "devDependencies": {
+    "standard": "^4.5.4",
+    "tape": "^3.5.0",
+    "watchify": "^2.4.0"
+  },
+  "dependencies": {
+    "eventemitter3": "^0.1.6",
+    "inherits": "^2.0.1",
+    "xtend": "^4.0.0"
+  }
+}
