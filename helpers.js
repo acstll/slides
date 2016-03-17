@@ -2,16 +2,11 @@
 var constants = require('./constants')
 
 module.exports = {
-  changeState: changeState,
-  moveIndex: moveIndex
+  getNewState: getNewState,
+  getNewIndex: getNewIndex
 }
 
-/*
-  TODO
-  - rename methods to better signify what they do
-*/
-
-function changeState (slides, index) {
+function getNewState (slides, index) {
   var activeIndex = slides.activeIndex
   var total = slides.size
 
@@ -47,7 +42,7 @@ function changeState (slides, index) {
   }
 }
 
-function moveIndex (slides, steps) {
+function getNewIndex (slides, steps) {
   var newIndex = slides.activeIndex + steps
 
   if (!slides.options.loop) {

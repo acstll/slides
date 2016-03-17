@@ -12,7 +12,7 @@ test('State updates (no loop)', function (t) {
   t.equal(slides.currentElement, elements[0])
   t.equal(slides.currentElement.state, null)
 
-  slides.run()
+  slides.update()
 
   t.equal(slides.currentElement.state, c.CURRENT)
 
@@ -53,7 +53,7 @@ test('State updates (loop)', function (t) {
   t.equal(slides.currentElement, elements[0])
   t.equal(slides.currentElement.state, null)
 
-  slides.run()
+  slides.update()
 
   t.equal(slides.currentElement.state, c.CURRENT)
 
@@ -90,7 +90,7 @@ test('State updates (only 2 slides)', function (t) {
   var elements = [{}, {}]
   var slides = new Slides(elements)
 
-  slides.run()
+  slides.update()
 
   t.equal(slides.move(), true)
   t.equal(slides.elements[0].state, c.PREVIOUS)
@@ -105,7 +105,7 @@ test('State updates (only 2 slides)', function (t) {
   // Loop
 
   slides = new Slides(elements, { loop: true })
-  slides.run()
+  slides.update()
 
   t.equal(slides.move(), true)
   t.equal(slides.elements[0].state, c.NEXT)
@@ -130,7 +130,7 @@ test('Events fire', function (t) {
     t.equal(previousState, null)
   })
 
-  slides.run()
+  slides.update()
 
   slides.on('move', function onMove (steps) {
     t.equal(steps, 2, 'move')

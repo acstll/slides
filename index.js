@@ -5,8 +5,8 @@ var assign = require('xtend/mutable')
 var inherits = require('inherits')
 var EventEmitter = require('eventemitter3')
 
-var moveIndex = require('./helpers').moveIndex
-var changeState = require('./helpers').changeState
+var getNewIndex = require('./helpers').getNewIndex
+var getNewState = require('./helpers').getNewState
 var constants = require('./constants')
 
 var defaults = { loop: false }
@@ -73,14 +73,14 @@ Object.defineProperty(Slides.prototype, 'size', {
   }
 })
 
-Slides.prototype.run = function run () {
+Slides.prototype.update = function update () {
   updateState(this)
 }
 
 Slides.prototype.move = function move (steps) {
   steps = steps || 1
   var self = this
-  var newIndex = moveIndex(self, steps)
+  var newIndex = getNewIndex(self, steps)
 
   if (newIndex === false || self.size === 0) {
     return false
@@ -96,7 +96,7 @@ Slides.prototype.move = function move (steps) {
 function updateState (slides) {
   slides.elements.forEach(function (el) {
     var previousState = el.state
-    var newState = changeState(slides, el.index)
+    var newState = getNewState(slides, el.index)
 
     if (previousState !== newState) {
       el.state = newState
