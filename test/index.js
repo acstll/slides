@@ -9,12 +9,12 @@ test('State updates (no loop)', function (t) {
   var slides = new Slides(elements)
 
   t.equal(slides.activeIndex, 0)
-  t.equal(slides.currentElement, elements[0])
-  t.equal(slides.currentElement.state, null)
+  t.equal(slides.current, elements[0])
+  t.equal(slides.current.state, null)
 
   slides.update()
 
-  t.equal(slides.currentElement.state, c.CURRENT)
+  t.equal(slides.current.state, c.CURRENT)
 
   t.equal(slides.move(), true)
   t.equal(slides.elements[0].state, c.PREVIOUS)
@@ -50,12 +50,12 @@ test('State updates (loop)', function (t) {
   var slides = new Slides(elements, { loop: true })
 
   t.equal(slides.activeIndex, 0)
-  t.equal(slides.currentElement, elements[0])
-  t.equal(slides.currentElement.state, null)
+  t.equal(slides.current, elements[0])
+  t.equal(slides.current.state, null)
 
   slides.update()
 
-  t.equal(slides.currentElement.state, c.CURRENT)
+  t.equal(slides.current.state, c.CURRENT)
 
   // There's no BEFORE state in loop mode, "always forward"
 
@@ -154,17 +154,35 @@ test('moveTo', function (t) {
   slides.once('move', function (steps) {
     t.pass('fires `move` event')
     t.equal(steps, 3)
-    t.equal(slides.currentElement, elements[3])
+    t.equal(slides.current, elements[3])
   })
 
   t.equal(slides.moveTo(3), true)
 
   slides.once('move', function (steps) {
     t.equal(steps, -1)
-    t.equal(slides.currentElement, elements[2])
+    t.equal(slides.current, elements[2])
   })
 
   t.equal(slides.moveTo(2), true)
 
   t.equal(slides.moveTo(6), false)
+})
+
+test('Position properties', function (t) {
+  var elements = [{}, {}, {}, {}, {}]
+  var slides = new Slides(elements, { loop: true }).update()
+
+  t.equal(slides.first, elements[0], 'first')
+  t.equal(slides.last, elements[elements.length - 1], 'last')
+  t.equal(slides.next, elements[1], 'next')
+  t.equal(slides.previous, elements[4], 'previous')
+
+  slides = new Slides(elements, { loop: false }).update()
+  slides.moveTo(4)
+
+  t.equal(slides.next, null, 'next')
+  t.equal(slides.previous, elements[3], 'previous')
+
+  t.end()
 })

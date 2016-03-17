@@ -47,24 +47,37 @@ inherits(Slides, EventEmitter)
 
 Slides.defaults = defaults
 
-Object.defineProperty(Slides.prototype, 'currentElement', {
+Object.defineProperty(Slides.prototype, 'current', {
   get: function () {
     var self = this
     return self.elements[self.activeIndex]
   }
 })
 
-// Object.defineProperty(Slides.prototype, 'nextElement', {
-//   get: function () {
-//     var self = this
-//   }
-// })
+Object.defineProperty(Slides.prototype, 'next', {
+  get: function () {
+    return getElement(this, 1)
+  }
+})
 
-// Object.defineProperty(Slides.prototype, 'previousElement', {
-//   get: function () {
-//     var self = this
-//   }
-// })
+Object.defineProperty(Slides.prototype, 'previous', {
+  get: function () {
+    return getElement(this, -1)
+  }
+})
+
+Object.defineProperty(Slides.prototype, 'first', {
+  get: function () {
+    return this.elements[0]
+  }
+})
+
+Object.defineProperty(Slides.prototype, 'last', {
+  get: function () {
+    var self = this
+    return self.elements[self.size - 1]
+  }
+})
 
 Object.defineProperty(Slides.prototype, 'size', {
   get: function () {
@@ -121,4 +134,14 @@ function updateState (slides) {
   })
 
   return slides
+}
+
+function getElement (slides, steps) {
+  var nextIndex = getNewIndex(slides, steps)
+
+  if (nextIndex === false) {
+    return null
+  }
+
+  return slides.elements[nextIndex]
 }
