@@ -143,6 +143,28 @@ test('Events fire', function (t) {
   })
 
   slides.move(2)
+})
 
-  t.end()
+test('moveTo', function (t) {
+  var elements = [{}, {}, {}, {}]
+  var slides = new Slides(elements).update()
+
+  t.plan(8)
+
+  slides.once('move', function (steps) {
+    t.pass('fires `move` event')
+    t.equal(steps, 3)
+    t.equal(slides.currentElement, elements[3])
+  })
+
+  t.equal(slides.moveTo(3), true)
+
+  slides.once('move', function (steps) {
+    t.equal(steps, -1)
+    t.equal(slides.currentElement, elements[2])
+  })
+
+  t.equal(slides.moveTo(2), true)
+
+  t.equal(slides.moveTo(6), false)
 })

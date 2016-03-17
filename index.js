@@ -14,7 +14,6 @@ var defaults = { loop: false }
 /*
   TODO
   - add getter `nextElement` and `previousElement`
-  - implement `moveTo` method
 */
 
 /*
@@ -74,7 +73,7 @@ Object.defineProperty(Slides.prototype, 'size', {
 })
 
 Slides.prototype.update = function update () {
-  updateState(this)
+  return updateState(this)
 }
 
 Slides.prototype.move = function move (steps) {
@@ -93,6 +92,23 @@ Slides.prototype.move = function move (steps) {
   return true
 }
 
+Slides.prototype.moveTo = function moveTo (index) {
+  var self = this
+  var oldIndex, steps
+
+  if (index >= self.size) {
+    return false
+  }
+
+  oldIndex = self.activeIndex
+  steps = index > oldIndex ? oldIndex + index : index - oldIndex
+  self.activeIndex = index
+  self.emit('move', steps)
+  updateState(self)
+
+  return true
+}
+
 function updateState (slides) {
   slides.elements.forEach(function (el) {
     var previousState = el.state
@@ -103,4 +119,6 @@ function updateState (slides) {
       slides.emit('update', el, previousState)
     }
   })
+
+  return slides
 }
