@@ -12,11 +12,6 @@ var constants = require('./constants')
 var defaults = { loop: false }
 
 /*
-  TODO
-  - add getter `nextElement` and `previousElement`
-*/
-
-/*
   Events:
   - 'move' (steps)
   - 'update' (el, previousState)
@@ -56,13 +51,13 @@ Object.defineProperty(Slides.prototype, 'current', {
 
 Object.defineProperty(Slides.prototype, 'next', {
   get: function () {
-    return getElement(this, 1)
+    return getElementBySteps(this, 1)
   }
 })
 
 Object.defineProperty(Slides.prototype, 'previous', {
   get: function () {
-    return getElement(this, -1)
+    return getElementBySteps(this, -1)
   }
 })
 
@@ -136,7 +131,7 @@ function updateState (slides) {
   return slides
 }
 
-function getElement (slides, steps) {
+function getElementBySteps (slides, steps) {
   var nextIndex = getNewIndex(slides, steps)
 
   if (nextIndex === false) {
