@@ -2,7 +2,7 @@
 
 This is meant to be used as a foundation for building slideshows in JavaScript.
 
-# Install
+## Install
 
 <mark>TODO</mark>
 
@@ -10,7 +10,7 @@ This is meant to be used as a foundation for building slideshows in JavaScript.
 npm ???
 ```
 
-# Usage
+## Usage
 
 ```js
 var Slides = require('???')
@@ -51,9 +51,9 @@ This library doesn't do **anything** to `elements` other than:
 
 It's up to you to handle your DOM nodes in any way you like to make the slideshow, well, do something.
 
-# API
+## API
 
-### `new Slides(elements[, options])`
+#### `new Slides(elements[, options])`
 
 - `elements` *Array*
 - `options` *Object*
@@ -61,28 +61,34 @@ It's up to you to handle your DOM nodes in any way you like to make the slidesho
 
 The `slides` instance is an EventEmitter (node.js API).
 
-## Events
+### Events
 
 - `move` (steps) Triggered once for every slideshow move.
 - `update` (el, previousState) Triggered on every move, for every element whose state has changed.
 
-## Methods
+### Methods
 
 Feel free to add methods to `Slides.prototype` to extend its funcionality.
 
-### `update()`
+#### `update()`
 
 Call this after setting up event listeners. This basically updates (mutates) the elements’ `state` property.
 
-### `move([steps])`
+Returns the instance.
+
+#### `move([steps])`
 
 - `steps` *Integer* How many steps the slides show move.
 
-### `moveTo(index)`
+Returns a *Boolean*. `true` if it moved, `false` if not.
+
+#### `moveTo(index)`
 
 - `index` *Integer*
 
-## Properties
+Returns a *Boolean*. `true` if it moved, `false` if not.
+
+### Properties
 
 - **size** *Integer*
 - **current** *Element*
@@ -91,7 +97,7 @@ Call this after setting up event listeners. This basically updates (mutates) the
 - **first** *Element*
 - **last** *Element*
 
-### State constants in constructor `Slides`
+### State constants attached to constructor `Slides`
 
 - `BEFORE`
 - `PREVIOUS`
