@@ -135,7 +135,7 @@ test('State updates (only 1 slide)', function (t) {
   t.equal(slides.elements[0].state, c.CURRENT)
 
   t.equal(slides.move(), false)
-  t.equal(slides.elements[0].state, c.CURRENT)
+  t.equal(slides.move(-1), false)
 
   t.end()
 })
