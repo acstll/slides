@@ -1,6 +1,6 @@
 {
   "name": "slides",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Slideshow utility",
   "main": "index.js",
   "scripts": {
