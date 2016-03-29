@@ -118,6 +118,28 @@ test('State updates (only 2 slides)', function (t) {
   t.end()
 })
 
+test('State updates (only 1 slide)', function (t) {
+  var elements = [{}]
+  var slides = new Slides(elements)
+
+  slides.update()
+  t.equal(slides.elements[0].state, c.CURRENT)
+
+  t.equal(slides.move(), false)
+  t.equal(slides.move(-1), false)
+
+  // Loop
+
+  slides = new Slides(elements, { loop: true })
+  slides.update()
+  t.equal(slides.elements[0].state, c.CURRENT)
+
+  t.equal(slides.move(), false)
+  t.equal(slides.elements[0].state, c.CURRENT)
+
+  t.end()
+})
+
 test('Events fire', function (t) {
   var elements = [{}, {}, {}]
   var slides = new Slides(elements, { loop: true })

@@ -13,7 +13,7 @@ function getNewState (slides, index) {
   // Loop mode
   if (slides.options.loop === true) {
     // If last item is 'current' and we're first
-    if (index === 0 && (activeIndex + 1 === total)) {
+    if (index === 0 && (activeIndex + 1 === total) && total !== 1) {
       return constants.NEXT
     }
     // If first item is 'current' and we're last

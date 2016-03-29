@@ -89,7 +89,7 @@ Slides.prototype.move = function move (steps) {
   var self = this
   var newIndex = getNewIndex(self, steps)
 
-  if (newIndex === false || self.size === 0) {
+  if (newIndex === false || self.size <= 1) {
     return false
   }
 
