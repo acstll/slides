@@ -1,6 +1,5 @@
 
 var test = require('tape')
-
 var Slides = require('../')
 var c = Slides // constants
 
@@ -205,6 +204,14 @@ test('Position properties', function (t) {
 
   t.equal(slides.next, null, 'next')
   t.equal(slides.previous, elements[3], 'previous')
+
+  t.end()
+})
+
+test('Slides takes only Arrays or Array-like', function (t) {
+  t.throws(function () {
+    var slides = new Slides(1)
+  }, 'throws otherwise')
 
   t.end()
 })

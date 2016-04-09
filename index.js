@@ -1,5 +1,3 @@
-/* global HTMLCollection */
-
 var extend = require('xtend')
 var assign = require('xtend/mutable')
 var inherits = require('inherits')
@@ -22,10 +20,11 @@ module.exports = assign(Slides, constants)
 function Slides (elements, options) {
   var self = this
 
-  if (typeof HTMLCollection !== 'undefined' && elements instanceof HTMLCollection) {
-    elements = [].slice.call(elements, 0)
+  if (typeof elements.length === 'undefined') {
+    throw new Error('The first argument is expected to be an Array or an Array-like object')
   }
-  elements.forEach(function (el, index) {
+
+  forEach(elements, function (el, index) {
     el.index = index
     el.state = null
   })
@@ -118,7 +117,7 @@ Slides.prototype.moveTo = function moveTo (index) {
 }
 
 function updateState (slides) {
-  slides.elements.forEach(function (el) {
+  forEach(slides.elements, function (el) {
     var previousState = el.state
     var newState = getNewState(slides, el.index)
 
@@ -139,4 +138,8 @@ function getElementBySteps (slides, steps) {
   }
 
   return slides.elements[nextIndex]
+}
+
+function forEach (collection, fn) {
+  Array.prototype.forEach.call(collection, fn)
 }
